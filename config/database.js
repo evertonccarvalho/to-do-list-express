@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
 
-mongoose
-  .connect("mongodb://127.0.0.1/todo-list", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("conectado ao MongoDB"))
-  .catch((err) => console.error(err));
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_CONNECT_URI);
+    console.log("Connected to MongoDB successfully");
+  } catch (error) {
+    console.error("Connection to MongoDB failed: " + error.message);
+  }
+};
+
+module.exports = connectDB;

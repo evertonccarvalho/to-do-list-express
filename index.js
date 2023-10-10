@@ -2,13 +2,15 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
+require("dotenv").config();
+
 const checklistsRouter = require("./src/routes/checklist");
 const taskRouter = require("./src/routes/task");
-
 const rootRouter = require("./src/routes/index");
 const methodOverride = require("method-override");
 
-require("./config/database");
+const connectDB = require("./config/database");
+connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,6 +27,8 @@ app.use("/checklists", checklistsRouter);
 app.use("/checklists", taskRouter.checklistDependet);
 app.use("/tasks", taskRouter.simple);
 
-app.listen(4000, () => {
-  console.log("Servido foi Iniciado");
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => {
+  console.log("Server is running on port " + PORT);
 });
