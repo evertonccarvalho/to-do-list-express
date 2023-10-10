@@ -9,6 +9,7 @@ const rootRouter = require("./src/routes/index");
 const methodOverride = require("method-override");
 
 require("./config/database");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,6 +25,6 @@ app.use("/checklists", checklistsRouter);
 app.use("/checklists", taskRouter.checklistDependet);
 app.use("/tasks", taskRouter.simple);
 
-app.listen(3000, () => {
+app.listen(4000, () => {
   console.log("Servido foi Iniciado");
 });
